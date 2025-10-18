@@ -8,14 +8,14 @@ pipeline {
 
     environment {
         JAVA_HOME = "${tool 'JDK 25'}"
-        PATH = "${JAVA_HOME}\bin:${env.PATH}"
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
         SONARQUBE_SERVER = 'SonarQube'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/AKIAAMMPP/Tp-Devops.git', credentialsId: 'github-token-id' // Ajout credential
+                git branch: 'main', url: 'https://github.com/AKIAAMMPP/Tp-Devops.git', credentialsId: 'github-token-id'
             }
         }
 
