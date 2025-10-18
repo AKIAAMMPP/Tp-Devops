@@ -1,0 +1,66 @@
+services:
+  postgres:
+    image: postgres:18.0
+    container_name: postgres-petclinic
+    environment:
+      - POSTGRES_PASSWORD=petclinic
+      - POSTGRES_USER=petclinic
+      - POSTGRES_DB=petclinic
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  spring-petclinic:
+    build: .
+    container_name: spring-petclinic
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+  sonarqube:
+    image: sonarqube:lts-community
+    container_name: sonarqube
+    environment:
+      - SONAR_JDBC_URL=jdbc:postgresql://sonar-db:5432/sonar
+      - SONAR_JDBC_USERNAME=sonar
+      - SONAR_JDBC_PASSWORD=sonar
+    ports:
+      - "9000:9000"
+    depends_on:
+      - sonar-db
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+
+  sonar-db:
+    image: postgres:15
+    container_name: sonar-db
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+      - POSTGRES_DB=sonar
+    volumes:
+      - sonar_db_data:/var/lib/postgresql/data
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    user: root
+    ports:
+      - "8081:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - sonarqube
+      - spring-petclinic
+
+volumes:
+  pgdata:
+  jenkins_home:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonar_db_data:
