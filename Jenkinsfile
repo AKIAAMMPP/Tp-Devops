@@ -2,18 +2,18 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven3'  // Nom de ton Maven installé dans Jenkins
-        jdk 'JDK25'     // Nom de ton JDK configuré dans Jenkins
+        maven 'Maven3'
+        jdk 'jdk-25'
     }
 
     environment {
-        SONARQUBE_SERVER = 'SonarQube' // Nom que tu as donné dans Jenkins
+        SONARQUBE_SERVER = 'SonarQube'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/spring-projects/spring-petclinic.git'
+                git branch: 'main', url: 'https://github.com/AKIAAMMPP/Tp-Devops.git'
             }
         }
 
@@ -32,7 +32,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv("${SONARQUBE_SERVER}") {
-                    sh './mvnw sonar:sonar -Dsonar.projectKey=petclinic'
+                    sh './mvnw sonar:sonar -Dsonar.projectKey=TpDevops'
                 }
             }
         }
