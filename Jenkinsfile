@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        JAVA_HOME = "${tool 'JDK 25'}"
+        JAVA_HOME = '/opt/java/jdk-25.0.0.36'
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
         SONARQUBE_SERVER = 'SonarQube'
     }
