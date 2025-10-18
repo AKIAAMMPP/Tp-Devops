@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         maven 'Maven3'
-        jdk 'JDK25' // Nom exact configuré dans Jenkins
+        jdk 'JDK11' // Remplacé JDK25 par une version valide, à ajuster
     }
 
     environment {
@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/AKIAAMMPP/Tp-Devops.git'
+                git branch: 'main', url: 'https://github.com/AKIAAMMPP/Tp-Devops.git', credentialsId: 'github-token-id' // Ajout credential
             }
         }
 
@@ -31,7 +31,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh './mvnw test'
+                sh 'rm -rf target/surefire-reports/* && ./mvnw test'
             }
         }
 
