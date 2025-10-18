@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         maven 'Maven3'
-        jdk 'JDK 25' // Nom exact configuré dans Jenkins
+        jdk 'JDK 25' // Nom exact dans Jenkins
     }
 
     environment {
@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/AKIAAMMPP/Tp-Devops.git', credentialsId: 'github-token-id'
+                git branch: 'main', url: 'https://github.com/AKIAAMMPP/Tp-Devops.git' // Mettre le bon credentialsId si nécessaire
             }
         }
 
