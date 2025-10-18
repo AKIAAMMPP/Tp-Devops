@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         maven 'Maven3'
-        jdk 'JDK25'
+        jdk 'JDK25' // Nom exact configuré dans Jenkins
     }
 
     environment {
@@ -13,7 +13,13 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/AKIAAMMPP/Tp-Devops.git'
+                git 'https://github.com/AKIAAMMPP/Tp-Devops.git'
+            }
+        }
+
+        stage('Prepare') {
+            steps {
+                sh 'chmod +x mvnw'
             }
         }
 
@@ -32,7 +38,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv("${SONARQUBE_SERVER}") {
-                    sh './mvnw sonar:sonar -Dsonar.projectKey=TpDevops'
+                    sh './mvnw sonar:sonar -Dsonar.projectKey=petclinic'
                 }
             }
         }
