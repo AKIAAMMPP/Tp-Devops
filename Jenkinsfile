@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         maven 'Maven3'
-        jdk 'JDK11' // Remplacé JDK25 par une version valide, à ajuster
+        jdk 'JDK25' // Nom exact configuré dans Jenkins
     }
 
     environment {
@@ -31,7 +31,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'rm -rf target/surefire-reports/* && ./mvnw test'
+                sh './mvnw test'
             }
         }
 
