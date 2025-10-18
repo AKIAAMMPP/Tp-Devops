@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         maven 'Maven3'
-        jdk 'JDK25' // Nom exact configuré dans Jenkins
+        jdk 'JDK 25' // Nom exact configuré dans Jenkins
     }
 
     environment {
